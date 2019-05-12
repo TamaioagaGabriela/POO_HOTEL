@@ -161,7 +161,7 @@ int main()
             total=zi+perioada-1;
             for (int i=zi; i<=total; i++)
                 {
-                    ptr[nr_camera]->Set_status(total);
+                    ptr[nr_camera]->Set_status(i,1);
                 }
             ptr[nr_camera]->Set_zi(total+1);
             prima_zi=zi;
@@ -185,7 +185,7 @@ int main()
             }
             total=zi+perioada-1;
             for (int i=zi; i<=total; i++)
-                ptr[nr_ap]->Set_status(total);
+                ptr[nr_ap]->Set_status(i,1);
             ptr[nr_ap]->Set_zi(total+1);
             prima_zi=zi;
             nr_cam=nr_ap;
@@ -232,12 +232,23 @@ int main()
                     total=prima_zi+perioada-1;
                     gasit=0;
                     for (int j=1; j<=total; j++)
-                        ptr[i]->Set_status(total);
+                        ptr[i]->Set_status(j,1);
                     ptr[i]->Set_zi(total+1);
+                    cout<<"nu sar"<<endl;
+                  //  cout<<ptr[i]->Get_Status(total)<<endl;
                     sala_conf=i;
                 }
                 i++;
             }
+            if (gasit==1)
+            {
+                sala_conf=-1;
+                //cout<<endl<<verif<<endl;
+                //cout<<ptr[i]->Get_Status(verif-2)<<endl;
+            }
+            for (int j=1; j<=10; j++)
+            cout<<endl<<ptr[24]->Get_Status(j)<<endl;
+
         }
         else if (rrr==2)
         {
@@ -245,17 +256,21 @@ int main()
             while (gasit && i<=28)
             {
                 verif=ptr[i]->Get_zi();
-                      if (verif<=prima_zi)
+                if (verif<=prima_zi)
                 {
                     int total;
                     total=prima_zi+perioada-1;
                     gasit=0;
                     for (int j=1; j<=total; j++)
-                        ptr[i]->Set_status(total);
+                        ptr[i]->Set_status(j,1);
                     ptr[i]->Set_zi(total+1);
                     sala_conf=i;
                 }
                 i++;
+            }
+            if (gasit==1)
+            {
+                sala_conf=-1;
             }
         }
 
@@ -289,14 +304,25 @@ int main()
                 if (nume_rez == rez[i]->Get_nume())
                 {
                     cout<<"blabla";
+                    int cam, per, primazi, conferinta, restaurant;
+                    cam=rez[i]->Get_nr_cam();
+                    cout<<cam<<endl;
+                    per=rez[i]->Get_Perioada();
+                    primazi=rez[i]->Get_Prima_zi();
+                    conferinta=rez[i]->Get_Sala_Conf();
+                    restaurant=ptr[23]->Get_Nr_Mese_Oc();
+                    for (int k=primazi; k<=primazi+per-1; k++)         //camera
+                        ptr[cam]->Set_status(k,0);
+                    ptr[23]->Set_Nr_Mese_Oc(restaurant-1);               //restaurant
                     rez[i]->Sterge_Rez();
+                    for (int k=primazi; k<=primazi+per-1; k++)
+                        ptr[conferinta]->Set_status(k,0);
                     for (int j=i; j<nr_rezervari; j++)
                     {
                         rez[j]=rez[j+1];
                     }
                     nr_rezervari--;
-                    cout<<endl;
-                      okk=0;
+                    okk=0;
                 }
                 i++;
 

@@ -30,17 +30,14 @@ public:
         capacitate=j;
     }
 
-    void Set_status(int i)
+    void Set_status(int i, int j)
     {
-        for(int k=0; k<=i; k++)
-            status[k]=1;
-        for (int k=i+1; k<=367; k++)
-            status[k]=0;
+        status[i]=j;
     }
 
-    long int * Get_Status()                                         // returnez dimensiunea vectorului
+    long int Get_Status(int i)                                         // returnez dimensiunea vectorului
     {
-        return status;
+        return status[i];
     }
 
     int Get_Capac()                                         // returnez dimensiunea vectorului
@@ -318,9 +315,6 @@ public:
 
     ~Rezervare()
     {
-//        if (nume != NULL)
-  //          delete []nume;
-    //    nume = NULL;
     }
 
 };
