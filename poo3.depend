@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1557675006 source:c:\users\grizonel\desktop\poo\poo3\main.cpp
+	<iostream>
+	<string>
+	<cstring>
+	<fstream>
+	<vector>
+	"poo3.h"
+
+1557674934 c:\users\grizonel\desktop\poo\poo3\poo3.h
+	<cstring>
+
