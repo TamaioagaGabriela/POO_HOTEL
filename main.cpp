@@ -166,6 +166,7 @@ int main()
             ptr[nr_camera]->Set_zi(total+1);
             prima_zi=zi;
             nr_cam=nr_camera;
+            cout<<ptr[nr_camera]->Get_Capac();
 
 
         }
@@ -196,11 +197,13 @@ int main()
             nr_res=0;
         else if(rr==1)
         {
-            int a,b, c;
+            int a,b,c;
             a=ptr[23]->Get_Capac();
             b=ptr[23]->Get_Nr_Mese_Oc();
+            cout<<b;
+            cout<<a;
             c=a-b;
-            if( c = 0 )
+            if( c == 0 )
             {
                 cout<<"Restaurantul este plin";
             }
@@ -236,7 +239,7 @@ int main()
                 i++;
             }
         }
-        else if (rrr=2)
+        else if (rrr==2)
         {
             int verif, i=26, gasit=1;
             while (gasit && i<=28)
@@ -283,8 +286,23 @@ int main()
             for (int i=1; i<=nr_rezervari; i++)
             {
                 if (nume_rez == rez[i]->Get_nume())
+                {
                     cout<<"blabla";
+                    rez[i]->Sterge_Rez();
+                    for (int j=i; j<nr_rezervari; j++)
+                    {
+                        rez[j]=rez[j+1];
+                    }
+                   // delete rez[nr_rezervari];
+                   // nr_rezervari--;
+                   // cout<<endl;
+                }
             }
+            cout<<"afisare: "<<endl;
+            for (int i=1; i<=nr_rezervari-1; i++)
+                {cout<< *rez[i];
+                cout<<endl<<i<<endl;
+                }
         }
 
     return 0;

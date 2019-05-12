@@ -55,7 +55,10 @@ public:
 
     virtual void Set_Nr_Mese_Oc(int i){};
 
-    virtual int Get_Nr_Mese_Oc(){};
+    virtual int Get_Nr_Mese_Oc()
+    {
+        return nr_mese_oc;
+    };
 
     int Get_zi()
     {
@@ -79,13 +82,18 @@ public:
 
     Incapere()
     {
-        capacitate = 0;
+        capacitate =0;
+        nr_mese_oc=0;
       //  for (int i=0; i<=367; i++)
         //    status[i] = 0; // libera
         numar = 0;
         zi=1;
-        nr_mese_oc=0;
     };
+
+    Incapere(int i): nr_mese_oc(0), numar(0), zi(1)
+    {
+        capacitate=i;
+    }
 
     virtual ~Incapere(){}
 };
@@ -101,10 +109,7 @@ public:
     friend ostream & operator << (ostream &out, const Camera &cam);
     friend istream & operator >> (istream &in, Camera &cam);
 
-    Camera():Incapere()
-    {
-        capacitate = 2;
-    };
+    Camera():Incapere(2){};
     virtual ~Camera(){};
 };
 
@@ -119,10 +124,7 @@ public:
     friend ostream & operator << (ostream &out, const Apartament &ap);
     friend istream & operator >> (istream &in, Apartament &ap);
 
-    Apartament():Incapere()
-    {
-        capacitate = 4;
-    };
+    Apartament():Incapere(4){};
     virtual ~Apartament(){};
 };
 
@@ -131,7 +133,7 @@ class Restaurant : public Incapere
     int nr_mese_oc;
     int numar;
     int capacitate;
-  //  int status;
+
 public:
 
     friend ostream & operator << (ostream &out, const Restaurant &res);
@@ -147,7 +149,7 @@ public:
         return nr_mese_oc;
     }
 
-    Restaurant():Incapere()
+    Restaurant(): Incapere(10)
     {
         capacitate = 10;
         nr_mese_oc = 0;
@@ -234,7 +236,6 @@ public:
     void Set_nume(char *num)                         // alocare dinamica vector de tip int
     {
         nume= num;
-        //strcpy(nume, num);
     }
 
     void Set_cam(int cam)                         // alocare dinamica vector de tip int
@@ -262,9 +263,19 @@ public:
         sala_conf=sala;
     }
 
+    void Sterge_Rez()
+    {
+        nume.clear();
+        nr_cam=0;
+        perioada=0;
+        prima_zi=0;
+        mic_dejun=0;
+        sala_conf=0;
+        nr_res=0;
+    }
+
     Rezervare()
     {
-       // strcpy(nume, NULL;
         nr_cam=0;
         perioada=0;
         prima_zi=0;
@@ -289,21 +300,20 @@ public:
     Rezervare(const Rezervare &rez)
     {
         nume=rez.nume;
-       // strcpy(nume, rez.nume);
     }
 
-    Rezervare & operator = (Rezervare *rez)
+    Rezervare & operator = (Rezervare rez)
     {
-        Rezervare *nou;
-        nou->nume = rez->nume;
+        Rezervare nou;
+        nou.nume = rez.nume;
         //strcpy(nou->nume,rez->nume);
-        nou->nr_cam = rez->nr_cam;
-        nou->perioada = rez->perioada;
-        nou->prima_zi = rez->prima_zi;
-        nou->sala_conf = rez->sala_conf;
-        nou->mic_dejun = rez->mic_dejun;
-        nou->nr_res = rez->nr_res;
-        return *nou;
+        nou.nr_cam = rez.nr_cam;
+        nou.perioada = rez.perioada;
+        nou.prima_zi = rez.prima_zi;
+        nou.sala_conf = rez.sala_conf;
+        nou.mic_dejun = rez.mic_dejun;
+        nou.nr_res = rez.nr_res;
+        return nou;
     }
 
     ~Rezervare()
