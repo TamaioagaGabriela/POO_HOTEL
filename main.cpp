@@ -280,10 +280,11 @@ int main()
         if (anulare==1)
         {
             string nume_rez;
+            int okk=1, i=1, nr;
             cout<<"Pe ce nume este facuta rezervarea?";
             cin.ignore();
             getline(cin, nume_rez);
-            for (int i=1; i<=nr_rezervari; i++)
+            while (okk && i<=nr_rezervari)
             {
                 if (nume_rez == rez[i]->Get_nume())
                 {
@@ -293,15 +294,18 @@ int main()
                     {
                         rez[j]=rez[j+1];
                     }
-                   // delete rez[nr_rezervari];
-                   // nr_rezervari--;
-                   // cout<<endl;
+                    nr_rezervari--;
+                    cout<<endl;
+                      okk=0;
                 }
+                i++;
+
             }
             cout<<"afisare: "<<endl;
-            for (int i=1; i<=nr_rezervari-1; i++)
-                {cout<< *rez[i];
-                cout<<endl<<i<<endl;
+            for (int i=1; i<=nr_rezervari; i++)
+                {
+                    cout<<endl<<i<<endl;
+                    cout<< *rez[i];
                 }
         }
 
