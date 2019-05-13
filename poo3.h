@@ -33,24 +33,24 @@ public:
         status[i] = j;
     }
 
-    long int Get_Status(int i)                                         // returnez dimensiunea vectorului
+    long int Get_Status(int i)
     {
         return status[i];
     }
 
-    int Get_Capac()                                         // returnez dimensiunea vectorului
+    int Get_Capac()
     {
         return capacitate;
     }
 
-    int Get_Numar()                                         // returnez dimensiunea vectorului
+    int Get_Numar()                   // numarul camerei/ap
     {
         return numar;
     }
 
     virtual void Set_Nr_Mese_Oc(int i)
     {
-        nr_mese_oc = i;
+        nr_mese_oc = i;               // setez nr de mese ocupate din restaurant
     };
 
     virtual int Get_Nr_Mese_Oc()
@@ -65,10 +65,10 @@ public:
 
     void Set_Zi(int i)
     {
-        zi = i;
+        zi = i;                       // setez prima zi din an in care e libera o camera
     };
 
-    Incapere & operator = (Incapere *incap)
+    Incapere & operator = (Incapere *incap)         // supraincarcarea op =
     {
         Incapere *nou;
         nou -> capacitate = incap -> capacitate;
@@ -163,23 +163,23 @@ public:
     friend ostream & operator << (ostream &out, const Rezervare &rez);
     friend istream & operator >> (istream &in, Rezervare &rez);
 
-    int Get_Nr_Cam()                                         // returnez dimensiunea vectorului
+    int Get_Nr_Cam()
     {
         return nr_cam;
     };
-    int Get_Perioada()                                         // returnez dimensiunea vectorului
+    int Get_Perioada()
     {
         return perioada;
     };
-    int Get_Prima_Zi()                                         // returnez dimensiunea vectorului
+    int Get_Prima_Zi()
     {
         return prima_zi;
     };
-    int Get_Dejun()                                         // returnez dimensiunea vectorului
+    int Get_Dejun()
     {
         return mic_dejun;
     };
-    int Get_Sala_Conf()                                         // returnez dimensiunea vectorului
+    int Get_Sala_Conf()
     {
         return sala_conf;
     };
@@ -196,40 +196,40 @@ public:
 
     void Set_Nr_Res(int i)
     {
-        nr_res = i;
+        nr_res = i;                               // setez  nr mesei de la restaurant
     };
 
-    void Set_Nume(char *num)                         // alocare dinamica vector de tip int
+    void Set_Nume(char *num)
     {
         nume = num;
     };
 
-    void Set_Cam(int cam)                         // alocare dinamica vector de tip int
+    void Set_Cam(int cam)
     {
         nr_cam = cam;
     };
 
-    void Set_Per(int per)                         // alocare dinamica vector de tip int
+    void Set_Per(int per)                         // setez perioada in care este facuta rezervarea
     {
         perioada = per;
     };
 
-    void Set_Zi(int zi)                         // alocare dinamica vector de tip int
+    void Set_Zi(int zi)                           // setez prima zi in care poate fi cazat la hotel
     {
         prima_zi = zi;
     };
 
-    void Set_Dejun(int dejun)                         // alocare dinamica vector de tip int
+    void Set_Dejun(int dejun)
     {
         mic_dejun = dejun;
     };
 
-    void Set_Sala(int sala)                         // alocare dinamica vector de tip int
+    void Set_Sala(int sala)
     {
         sala_conf = sala;
     };
 
-    void Sterge_Rez()
+    void Sterge_Rez()                             // functie de anulare a unei rezervari
     {
         nume.clear();
         nr_cam = 0;
@@ -256,7 +256,7 @@ public:
         nr_cam = cam;
         perioada = per;
         prima_zi = zi;
-        sala_conf = conf;
+        sala_conf = conf;                           // constructorul cu parametrii
         mic_dejun = dejun;
         nr_res = restaurant;
     };
@@ -266,7 +266,7 @@ public:
         nume = rez.nume;
     };
 
-    Rezervare & operator = (Rezervare &rez)
+    Rezervare & operator = (Rezervare &rez)         // supraincarcarea op =
     {
         Rezervare nou;
         nou.nume = rez.nume;

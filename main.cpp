@@ -94,7 +94,7 @@ int main()
             int minim, nr_camera = 1, total, zi;
             minim = ptr[1] -> Get_Zi();
 
-            for (int i = 2; i <= 15; i++)
+            for (int i = 2; i <= 15; i++)               // gasesc minimul dintre zilele in care pot caza pe cineva si aleg acea zi
             {
                 zi = ptr[i] -> Get_Zi();
                 if (zi < minim)
@@ -106,12 +106,11 @@ int main()
             total = zi + perioada -1;
             for (int i = zi; i <= total; i++)
                 {
-                    ptr[nr_camera] -> Set_Status(i,1);
-                }
-            ptr[nr_camera] -> Set_Zi(total+1);
-            prima_zi = zi;
-            nr_cam = nr_camera;
-
+                    ptr[nr_camera] -> Set_Status(i,1);  // in vector de 365 de zile al camerei pun 1 in perioada
+                }                                       // in care e rezervata camera
+            ptr[nr_camera] -> Set_Zi(total+1);          // setez ziua de eliberare a camerei
+            prima_zi = zi;                              // setez prima zi in care pot caza clientul in camera
+            nr_cam = nr_camera;                         // retin nr camerei pt rezervare
         }
         else if(r == 2)
         {
@@ -121,7 +120,7 @@ int main()
             for (int i = 16; i <= 22; i++)
             {
                 zi = ptr[i] -> Get_Zi();
-                if (zi < minim)
+                if (zi < minim)                         // gasesc minimul dintre zilele in care pot caza pe cineva si aleg acea zi
                 {
                     minim = zi;
                     nr_ap = i;
@@ -129,10 +128,10 @@ int main()
             }
             total = zi + perioada - 1;
             for (int i = zi; i <= total; i++)
-                ptr[nr_ap] -> Set_Status(i,1);
-            ptr[nr_ap] -> Set_Zi(total+1);
-            prima_zi = zi;
-            nr_cam = nr_ap;
+                ptr[nr_ap] -> Set_Status(i,1);          // in vector de 365 de zile al apartamentului pun 1 in perioada in care e rezervat apartamentul
+            ptr[nr_ap] -> Set_Zi(total+1);              // setez ziua de eliberare a camerei
+            prima_zi = zi;                              // setez prima zi in care pot caza clientul in apartament
+            nr_cam = nr_ap;                             // retin nr apartamentului pt rezervare
         }
 
         cout << "Doriti sa mergeti la restaurant? (0-nu, 1-da): ";
@@ -142,17 +141,17 @@ int main()
         else if(rr == 1)
         {
             int a,b,c;
-            a = ptr[23] -> Get_Capac();
-            b = ptr[23] -> Get_Nr_Mese_Oc();
-            c = a - b;
+            a = ptr[23] -> Get_Capac();                 // capacitatea = nr de mese pe care le am in restaurant
+            b = ptr[23] -> Get_Nr_Mese_Oc();            // nr de mese ocupate
+            c = a - b;                                  // calculez cate mese libere am
             if( c == 0 )
             {
                 cout << "Restaurantul este plin." << endl;
             }
             else
             {
-                ptr[23] -> Set_Nr_Mese_Oc(b+1);
-                nr_res = b + 1;
+                ptr[23] -> Set_Nr_Mese_Oc(b+1);         // adaug la nr de mese ocupate inca 1
+                nr_res = b + 1;                         // retin nr mesei pt rezervare
             }
         }
 
@@ -160,57 +159,57 @@ int main()
         cin >> rrr;
         if(rrr == 0)
             sala_conf = 0;
-        else if (rrr == 1)
+        else if (rrr == 1)                              // sala de conferinta cu proiector
         {
             int verif, i = 24, gasit = 1;
             while (gasit && i <= 25)
             {
-                verif = ptr[i] -> Get_Zi();
+                verif = ptr[i] -> Get_Zi();             // verific ce sala este libera
                 if (verif <= prima_zi)
                 {
                     int total;
                     total = prima_zi + perioada -1;
                     gasit = 0;
                     for (int j = 1; j <= total; j++)
-                        ptr[i] -> Set_Status(j,1);
-                    ptr[i] -> Set_Zi(total+1);
-                    sala_conf = i;
+                        ptr[i] -> Set_Status(j,1);      // pun 1 in vectorul de 365 zile al salii pt perioada respectiva
+                    ptr[i] -> Set_Zi(total+1);          // i.e. sala este ocupata in acea perioada
+                    sala_conf = i;                      // retin nr salii de conferinta pt rezervare
                 }
                 i++;
             }
             if (gasit == 1)
             {
-                sala_conf = -1;
+                sala_conf = -1;                         // daca sala este ocupata in acea perioada, atunci il anunt ca nu poate rezerva sala de conf
             }
         }
-        else if (rrr == 2)
+        else if (rrr == 2)                              // sala de conferinta cu scena
         {
             int verif, i = 26, gasit = 1;
             while (gasit && i <= 28)
             {
                 verif = ptr[i] -> Get_Zi();
-                if (verif <= prima_zi)
+                if (verif <= prima_zi)                  // verific ce sala este libera
                 {
                     int total;
                     total = prima_zi + perioada - 1;
                     gasit = 0;
                     for (int j = 1; j <= total; j++)
-                        ptr[i] -> Set_Status(j,1);
-                    ptr[i] -> Set_Zi(total + 1);
-                    sala_conf = i;
+                        ptr[i] -> Set_Status(j,1);      // pun 1 in vectorul de 365 zile al salii pt perioada respectiva
+                    ptr[i] -> Set_Zi(total + 1);        // i.e. sala este ocupata in acea perioada
+                    sala_conf = i;                      // retin nr salii de conferinta pt rezervare
                 }
                 i++;
             }
             if (gasit == 1)
             {
-                sala_conf = -1;
+                sala_conf = -1;                         // daca sala este ocupata in acea perioada, atunci il anunt ca nu poate rezerva sala de conf
             }
         }
 
         cout << "Doriti sa luati micul dejun in camera sau la restaurant? (0-camera, 1-restaurant): ";
         cin >> mic_dejun;
 
-        rez[k] = new Rezervare(nume, nr_cam, perioada, prima_zi, mic_dejun, sala_conf, nr_res);
+        rez[k] = new Rezervare(nume, nr_cam, perioada, prima_zi, mic_dejun, sala_conf, nr_res);     // creez rezervarea folosind constructorul cu parametrii
 
         cout << endl << "Inca o rezervare? (1-da, 0-nu): ";
         cin >> rrrr;
@@ -237,32 +236,32 @@ int main()
             cout<< nume_rez;
             while (okk && i <= nr_rezervari)
             {
-                if (nume_rez == rez[i] -> Get_Nume())
+                if (nume_rez == rez[i] -> Get_Nume())                    // caut rezervarea facuta pe numele dat pe consola
                 {
                     int cam, per, primazi, conferinta, restaurant;
-                    cam = rez[i] -> Get_Nr_Cam();
+                    cam = rez[i] -> Get_Nr_Cam();                        // retin toate informatiile din rezervare
                     per = rez[i] -> Get_Perioada();
                     primazi = rez[i] -> Get_Prima_Zi();
                     conferinta = rez[i] -> Get_Sala_Conf();
                     restaurant = ptr[23] -> Get_Nr_Mese_Oc();
-                    for (int k = primazi; k <= primazi + per - 1; k++)         //camera
-                        ptr[cam] -> Set_Status(k,0);
-                    ptr[23] -> Set_Nr_Mese_Oc(restaurant-1);               //restaurant
-                    rez[i] -> Sterge_Rez();
+                    for (int k = primazi; k <= primazi + per - 1; k++)   // setez in vectorul camerei 0 pt perioada respectiva,
+                        ptr[cam] -> Set_Status(k,0);                     // i.e. camera este libera in acea perioada
+                    ptr[23] -> Set_Nr_Mese_Oc(restaurant-1);             // eliberez masa de la restaurant
+                    rez[i] -> Sterge_Rez();                              // sterg rezervarea prin functia de stergere
                     for (int k = primazi; k <= primazi + per - 1; k++)
                         ptr[conferinta] -> Set_Status(k,0);
-                    for (int j = i; j < nr_rezervari; j++)
+                    for (int j = i; j < nr_rezervari; j++)               // sterg rezervarea si le mut cu o casuta pe toate cele de dupa ea
                     {
                         rez[j] = rez[j + 1];
                     }
-                    nr_rezervari --;
+                    nr_rezervari --;                                     //sterg ultima casuta care a ramas goala
                     okk = 0;
                 }
                 i++;
             }
         }
 
-    cout << endl  << endl << "Rezervarile sunt: " << endl;
+    cout << endl  << endl << "Rezervarile sunt: " << endl;              // afisez rezervarile
     for (int i = 1; i <= nr_rezervari; i++)
         {
             cout << endl << "Rezervarea " << i <<": " << endl;
@@ -270,10 +269,10 @@ int main()
         }
     for (int i = nr_rezervari; i >= 1; i--)
     {
-        delete rez[i];
+        delete rez[i];                                                  // sterg vectorul cu rezervari
     }
 
-    for (int i = 28; i >= 1; i--)
+    for (int i = 28; i >= 1; i--)                                       // sterg vectorul in care memorasem camerele, apartamentele, restaurantul si salile de conf.
     {
         delete ptr[i];
     }
